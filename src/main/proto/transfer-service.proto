@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.example.models";
+
+message TransferRequest {
+  int32 from_account = 1;
+  int32 to_account = 2;
+  int32 amount = 3;
+}
+
+message Account {
+  int32 account_no = 1;
+  int32 amount = 2;
+}
+
+enum TransferStatus {
+  FAILED = 0;
+  SUCCESS = 1;
+}
+
+message TransferResponse {
+  repeated Account accounts = 1;
+  TransferStatus status = 2;
+}
+
+service TransferService {
+  rpc transferMoney (stream TransferRequest) returns (stream TransferResponse);
+}
